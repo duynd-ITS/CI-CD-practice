@@ -13,31 +13,25 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      # Step 1: Checkout the repository code
       - uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js with the specified version
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'  # Cache npm dependencies
+          cache: 'npm'
 
-      # Step 3: Install dependencies cleanly
       - run: npm ci
 
-      # Step 4: Build the Vite app (outputs to "dist" by default)
       - name: Build the app
-        run: npm run build  # Vite uses "dist" as the default output folder
+        run: npm run build
 
-      # Step 5: Deploy to GitHub Pages (only on push to master)
-      - name: Deploy with gh-pages
-        if: github.ref == 'refs/heads/master'  # Only deploy on push to master
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d dist -u "github-actions-bot <support+actions@github.com>"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Updated Deployment Step
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/master'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
