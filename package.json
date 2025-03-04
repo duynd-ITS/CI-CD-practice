@@ -1,6 +1,6 @@
 {
   "name": "ci-cd-practice",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://duynd-its.github.io/CI-CD-practice/",
