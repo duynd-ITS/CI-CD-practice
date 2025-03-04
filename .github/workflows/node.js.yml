@@ -41,8 +41,9 @@ jobs:
 
       # Updated Deployment Step
       - name: Deploy to GitHub Pages
-        run: 
-          # git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
           npm run deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
