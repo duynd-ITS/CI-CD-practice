@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://duynd-its.github.io/CI-CD-practice/",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port=5173",
     "build": "vite build",
     "deploy": "gh-pages -d build",
     "lint": "eslint .",
